@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя Видеогалерея</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --accent-color: #00adb5;
+            --accent-hover: #00fff5;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .video-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .video-name {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #b3b3b3;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background-color: var(--accent-hover);
+            color: #121212;
+            box-shadow: 0 0 15px var(--accent-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎬 Видеогалерея</h1>
+
+    <div class="gallery" id="gallery"></div>
+
+    <script>
+        // Список твоих файлов
+        const videoFiles = [
+            "1.mp4",
+            "2.mp4",
+            "VID_20260822_204447_574.mp4",
+            "VID_20260822_204447_597.mp4",
+            "VID_20260822_204447_639.mp4",
+            "VID_20260822_204447_657.mp4",
+            "VID_20260822_204447_929.mp4",
+            "VID_20260822_204447_996.mp4",
+            "VID_20260822_205222_836.mp4",
+            "VID_20260822_205223_023.mp4",
+            "VID_20260822_205223_075.mp4",
+            "VID_20260822_205223_400.mp4",
+            "VID_20260822_205223_489.mp4",
+            "VID_20260822_205223_578.mp4"
+        ];
+
+        const gallery = document.getElementById('gallery');
+
+        // Автоматически создаем карточки для каждого видео
+        videoFiles.forEach(fileName => {
+            const card = document.createElement('div');
+            card.className = 'video-card';
+
+            card.innerHTML = `
+                <video controls preload="metadata">
+                    <source src="${fileName}" type="video/mp4">
+                    Ваш браузер не поддерживает тег видео.
+                </video>
+                <div class="video-info">
+                    <div class="video-name" title="${fileName}">${fileName}</div>
+                    <a href="${fileName}" download="${fileName}" class="download-btn">⬇️ Скачать</a>
+                </div>
+            `;
+
+            gallery.appendChild(card);
+        });
+    </script>
+
+</body>
+</html>
